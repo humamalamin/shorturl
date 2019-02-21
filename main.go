@@ -10,14 +10,14 @@ import (
 )
 
 
-type Redirect struct {
+type myUrl struct {
 	Id 		int
 	Slug 	string 	`db:"slug" form:"slug"`
 	Url  	string	`db:"url" form:"url"`
 }
 
 
-var db, err = sql.Open("mysql", "root@tcp(127.0.0.1:3306)/db-redirects")
+var db, err = sql.Open("mysql", "root@tcp(127.0.0.1:3306)/shorturl")
 
 
 func getBySlug(c *gin.Context){
@@ -65,14 +65,14 @@ func add(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"message": fmt.Sprintf("201 Created"),
-		"url": fmt.Sprintf("Location: http://domain.com/%s",Slug),
+		"url": fmt.Sprintf("Location: http://humamalamin.com/%s",Slug),
 	})
 	
 }
 
 
 func createTable(){
-	stmt, err := db.Prepare("CREATE TABLE redirect (id int NOT NULL AUTO_INCREMENT, Slug varchar(40), Url varchar(40), PRIMARY KEY (id));")
+	stmt, err := db.Prepare("CREATE TABLE myUrl (id int NOT NULL AUTO_INCREMENT, Slug varchar(40), Url varchar(40), PRIMARY KEY (id));")
 	if err != nil {
 		fmt.Println(err.Error())
 	}
